@@ -5,11 +5,11 @@ const Menu_Planners = sequelize.define(
     'menu_planners',
     {
         date: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.STRING,
             allowNull: false,
         },
     },
     { updatedAt: false }
 )
 
-module.exports = Menu_Planners
+module.exports = Menu_Planners 

@@ -92,7 +92,11 @@ async function insertRecipe(req, res) {
                 }
             }
             if (!exist) {
-                user.addRecipes(req.params.id)
+                await Menu_Planners.create({ 
+                recipeId: recipe.id, 
+                userId: user.id,
+                date: req.body.date 
+              });
                 return res.status(200).json({ message: 'Recipe added' })
             } else {
                 return res.status(404).send('Recipe alredy exist')
