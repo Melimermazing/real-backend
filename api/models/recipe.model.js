@@ -21,10 +21,7 @@ const Recipe = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        ingredient: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
+
     },
     { updatedAt: false }
 )
