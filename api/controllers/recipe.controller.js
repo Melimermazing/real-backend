@@ -3,6 +3,8 @@ const Ingredient = require('../models/ingredient.model')
 const Recipe_Ingredient = require('../models/recipe_ingredient.model')
 const Menu_Planners = require('../models/menu_planner.model')
 
+const { Op } = require('sequelize');
+
 async function getAllRecipes(req, res) {
     try {
         const recipes = await Recipe.findAll()
@@ -221,7 +223,7 @@ async function updateIngredientInRecipe(req, res) {
 async function getOneRecipeByName(req, res) {
     try {
         const recipe = await Recipe.findOne({
-            where: { name: req.body.name }
+            where:  { name: { [Op.like]: `%${req.body.name}%` } },
         })
         if (recipe) {
             return res.status(200).json(recipe)
