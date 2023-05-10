@@ -106,25 +106,25 @@ async function randomRecipe(req, res) {
         } else {
             return res.status(404).send('All Recipes alredy exist')
         }
-    } catch(error) {
+    } catch (error) {
         return res.status(500).send(error.message)
     }
 }
 
 async function addIngredientToRecipe(req, res) {
- 
+
     try {
         const recipe = await Recipe.findByPk(req.params.id)
         console.log(recipe)
         const ingredient = await Ingredient.findByPk(req.params.ingredientId)
         console.log(ingredient)
         if (recipe && ingredient) {
-            await Recipe_Ingredient.create({ 
-                recipeId: recipe.id, 
-                ingredientId: ingredient.id, 
-                quantity: req.body.quantity, 
-                unit: req.body.unit 
-              });
+            await Recipe_Ingredient.create({
+                recipeId: recipe.id,
+                ingredientId: ingredient.id,
+                quantity: req.body.quantity,
+                unit: req.body.unit
+            });
             return res.status(200).json('Recpe with Ingredient added')
         } else {
             return res.status(404).send('Recipe or Ingredient not found')
@@ -223,7 +223,7 @@ async function updateIngredientInRecipe(req, res) {
 async function getOneRecipeByName(req, res) {
     try {
         const recipe = await Recipe.findOne({
-            where:  { name: { [Op.like]: `%${req.body.name}%` } },
+            where: { name: { [Op.like]: `%${req.body.name}%` } },
         })
         if (recipe) {
             return res.status(200).json(recipe)

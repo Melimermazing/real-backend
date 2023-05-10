@@ -177,6 +177,20 @@ async function getMenuPlanner(req, res) {
     }
 }
 
+async function getRecipeSpecial(req, res) {
+    try {
+        const user = await User.findByPk(res.locals.user.id, {
+            include: Recipe, nest: true 
+        })
+        // const recipes = await user.getRecipes()
+        if(user){
+            return res.status(200).json(user)
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
 async function updateMenuPlanner(req, res) {// PROBAR
     try {
         const updated = await res.locals.user.getRecipes.update(
@@ -217,12 +231,14 @@ async function deleteRecipeMenuPlanner(req, res) {
     try {
         // const recipe = Menu_Planners.findOne(req.params.id)
         // if ()
+        const user = await User.findByPk(res.locals.user.id)       
         const deleted = await Menu_Planners.destroy({
             where: {
                 userId: res.locals.user.id,
                 recipeId: req.params.id
             }
         });
+        console.log(req.params)
         if (deleted) {
             return res.status(200).json({ message: 'Recipe deleted from menu planner' });
         } else {
@@ -371,4 +387,5 @@ module.exports = {
     addAllergenToUser,
     updateAllergenFromUser,
     deleteAllergenFromUser,
+    getRecipeSpecial
 }

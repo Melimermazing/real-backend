@@ -17,6 +17,7 @@ const {
     deleteRecipeMenuPlanner,
     deleteAllRecipesMenuPlanner,
     deleteAllergenFromUser,
+    getRecipeSpecial
 } = require('../controllers/user.controller')
 
 const {
@@ -39,6 +40,7 @@ const {
 
 router.get('/', checkAuth, checkAdmin, getAllUsers) //Admin ve todos los usuarios
 router.get('/me/menuPlanner', checkAuth, getMenuPlanner) //Usuario ve su MenuPlanner
+router.get('/me/userRecipe', checkAuth, getRecipeSpecial) 
 router.get('/me/allergen', checkAuth, getAllergensByUser) //Usuario ve sus alérgenos
 router.get('/me', checkAuth, getMe) //Usuario ve su perfil
 router.get('/:id', checkAuth, checkAdmin, getOneUser) //Admin ve un usuario
