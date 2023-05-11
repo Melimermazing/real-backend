@@ -235,6 +235,21 @@ async function getOneRecipeByName(req, res) {
     }
 }
 
+async function getAllRecipesByName(req, res) {
+    try {
+        const recipe = await Recipe.findAll({
+            where: { name: { [Op.like]: `%${req.body.name}%` } },
+        })
+        if (recipe) {
+            return res.status(200).json(recipe)
+        } else {
+            return res.status(404).send('Recipe not found')
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     getAllRecipes,
     getOneRecipe,
@@ -248,4 +263,5 @@ module.exports = {
     deleteIngredientFromRecipe,
     getIngredientsByRecipe,
     getOneRecipeByName,
+    getAllRecipesByName,
 }
